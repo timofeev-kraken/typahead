@@ -1,0 +1,14 @@
+<h3>
+  Select person
+</h3>
+
+<div class="container">
+  <app-typeahead-chip-input
+    [(ngModel)]="selectedIds"
+    [data]="data"
+    [labelProp]="'name'"
+    [placeholder]="'type anything'"
+    [valueProp]="'id'">
+  </app-typeahead-chip-input>
+</div>
+<div>{{selectedIds | json}}</div>

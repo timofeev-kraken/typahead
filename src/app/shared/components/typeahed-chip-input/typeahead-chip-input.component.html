@@ -1,0 +1,40 @@
+<div class="select-typeahead-container">
+  <div class="select-typeahead" #wrapper>
+    <span *ngFor="let id of model" class="select-typeahead__selected-item">
+      <span class="select-typeahead__selected-item-text">{{ findItem(id)[labelProp] }}</span>
+        <img src="assets/icons/cross.png" alt="" (click)="select(id)">
+    </span>
+
+    <input
+      #searchedValue
+      (focus)="toggle(true, wrapper)"
+      (input)="searchValue(searchedValue.value)"
+      type="text"
+      name="searchedValue"
+      autocomplete="off"
+      placeholder="{{ placeholder }}"
+      class="select-typeahead_search-input"
+    />
+  </div>
+
+  <div>
+    <div
+      *ngIf="foundList$ | async"
+      class=""
+    >
+      <div class="no-records"  *ngIf="!(foundList$ | async)?.length">{{itemsNotFound}}</div>
+      <div class="search__list-wrapper" *ngIf="isOpen">
+        <div
+          class="list-item__wrapper"
+          [ngClass]="{'selected': isSelected(item[valueProp])}"
+          *ngFor="let item of foundList$ | async"
+          (click)="select(item[valueProp]); toggle()"
+        >
+          <span class="list-item">
+            {{item[labelProp]}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
